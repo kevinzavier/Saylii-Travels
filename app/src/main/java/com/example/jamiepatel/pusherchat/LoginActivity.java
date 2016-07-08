@@ -3,6 +3,7 @@ package com.example.jamiepatel.pusherchat;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +53,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnKeyListen
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);
+
         }
         return true;
     }

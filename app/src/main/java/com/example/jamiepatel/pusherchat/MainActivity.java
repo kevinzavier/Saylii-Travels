@@ -2,6 +2,7 @@ package com.example.jamiepatel.pusherchat;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -126,6 +127,11 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         params.put("time", new Date().getTime());
 
         AsyncHttpClient client = new AsyncHttpClient();
+
+
+        //SmsManager smsManager = SmsManager.getDefault();
+        //smsManager.sendTextMessage("818-913-5671", null,text, null, null);
+
 
         client.post(MESSAGES_ENDPOINT + "/messages", params, new JsonHttpResponseHandler(){
 

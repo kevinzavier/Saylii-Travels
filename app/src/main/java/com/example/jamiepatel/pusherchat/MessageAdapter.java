@@ -11,9 +11,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
-/**
- * Created by jamiepatel on 22/09/2015.
- */
+
 public class MessageAdapter extends BaseAdapter {
 
     Context messageContext;
@@ -61,9 +59,10 @@ public class MessageAdapter extends BaseAdapter {
         holder.senderView.setText(message.name);
 
         Picasso.with(messageContext).
-                load("https://twitter.com/"+message.name+"/profile_image?size=original").
+                load("http://www.iconsdb.com/icons/preview/caribbean-blue/contacts-xxl.png").
                 placeholder(R.mipmap.ic_launcher).
                 into(holder.thumbnailImageView);
+
         return convertView;
     }
 
