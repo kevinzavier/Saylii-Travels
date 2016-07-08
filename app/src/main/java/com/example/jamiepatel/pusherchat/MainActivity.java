@@ -43,6 +43,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         setContentView(R.layout.activity_main);
 
         username = this.getIntent().getExtras().getString("username");
+        //
         Toast.makeText(this, "Welcome, " + username + "!", Toast.LENGTH_LONG).show();
 
         messageInput = (EditText) findViewById(R.id.message_input);

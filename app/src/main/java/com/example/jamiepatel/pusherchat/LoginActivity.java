@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 public class LoginActivity extends ActionBarActivity implements View.OnKeyListener {
 
+    EditText phonenumber_input;
     EditText usernameInput;
 
     @Override
