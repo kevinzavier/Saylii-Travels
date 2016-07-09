@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        username = this.getIntent().getExtras().getString("username");
+        username = this.getIntent().getExtras().getString("username");  //from LoginActivity
         //
         Toast.makeText(this, "Welcome, " + username + "!", Toast.LENGTH_LONG).show();
 
@@ -98,6 +98,9 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.add_user) {
             return true;
         }
 

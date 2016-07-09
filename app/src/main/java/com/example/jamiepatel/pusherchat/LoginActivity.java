@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 public class LoginActivity extends ActionBarActivity implements View.OnKeyListener {
 
-    EditText phonenumber_input;
+    EditText phonenumberInput;
     EditText usernameInput;
 
     @Override
@@ -22,6 +22,8 @@ public class LoginActivity extends ActionBarActivity implements View.OnKeyListen
         setContentView(R.layout.activity_login);
         usernameInput = (EditText) findViewById(R.id.username_input);
         usernameInput.setOnKeyListener(this);
+        phonenumberInput = (EditText) findViewById(R.id.phonenumber_input);
+        phonenumberInput.setOnKeyListener(this);
     }
 
 
