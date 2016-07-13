@@ -185,12 +185,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
     }
 
-    public void postMessage(String body, String name)  {
-        String text = messageInput.getText().toString();
-
-        if (text.equals("")) {
-            return;
-        }
+    public void postMessage(String name, String body)  {
 
         RequestParams params = new RequestParams();
 
@@ -199,6 +194,9 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         params.put("time", new Date().getTime());
 
         AsyncHttpClient client = new AsyncHttpClient();
+        //Log.i("USERNAME", name);
+        //Log.i("BODY", body);
+
 
         /*
         Log.i("README", phonenumber);
@@ -279,10 +277,11 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
                             */
 
                     //start(intent);
+                    postMessage(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody().toString());
                 }
             }
-            postMessage("burh", "bruh");
-            Toast.makeText(context, messageReceived, Toast.LENGTH_SHORT).show();
+
+            //Toast.makeText(context, messageReceived, Toast.LENGTH_SHORT).show();
         }
 
 
