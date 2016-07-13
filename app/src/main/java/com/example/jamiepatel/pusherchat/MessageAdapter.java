@@ -17,6 +17,7 @@ public class MessageAdapter extends BaseAdapter {
     Context messageContext;
     List<Message> messageList;
 
+
     public MessageAdapter(Context context, List<Message> messages){
         messageList = messages;
         messageContext = context;

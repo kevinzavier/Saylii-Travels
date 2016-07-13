@@ -9,9 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
-public class LoginActivity extends ActionBarActivity implements View.OnKeyListener {
+public class LoginActivity extends ActionBarActivity {
 
     EditText phonenumberInput;
     EditText usernameInput;
@@ -21,9 +22,9 @@ public class LoginActivity extends ActionBarActivity implements View.OnKeyListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         usernameInput = (EditText) findViewById(R.id.username_input);
-        usernameInput.setOnKeyListener(this);
+        //usernameInput.setOnKeyListener(this);
         phonenumberInput = (EditText) findViewById(R.id.phonenumber_input);
-        phonenumberInput.setOnKeyListener(this);
+        //phonenumberInput.setOnKeyListener(this);
     }
 
 
@@ -49,15 +50,34 @@ public class LoginActivity extends ActionBarActivity implements View.OnKeyListen
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
-            String username = usernameInput.getText().toString();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("username", username);
-            startActivity(intent);
 
+    public boolean onBottonClick(View v) {
+
+
+        String username = usernameInput.getText().toString();
+        String phonenumber = phonenumberInput.getText().toString();
+        if(username.length() == 0 && phonenumber.length() < 10){
+            Toast myToast = Toast.makeText(getApplicationContext(),
+                    "Please enter a name and phone number", Toast.LENGTH_SHORT);
+            myToast.show();
+            return false;
         }
+        if(username.length() == 0){
+            Toast myToast = Toast.makeText(getApplicationContext(),
+                    "Please enter a name", Toast.LENGTH_SHORT);
+            myToast.show();
+            return false;
+        }
+        if(phonenumber.length() < 10){
+            Toast myToast = Toast.makeText(getApplicationContext(),
+                    "Please enter a valid phone number", Toast.LENGTH_SHORT);
+            myToast.show();
+            return false;
+        }
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("username", username);
+        intent.putExtra("phonenumber", phonenumber);
+        startActivity(intent);
         return true;
     }
 }
