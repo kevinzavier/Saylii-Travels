@@ -45,6 +45,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
     String username;
     String phonenumber;
     SmsReceiver myReceiver;
+    private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

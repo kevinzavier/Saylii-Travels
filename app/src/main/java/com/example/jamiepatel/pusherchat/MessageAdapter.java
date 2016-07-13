@@ -58,9 +58,9 @@ public class MessageAdapter extends BaseAdapter {
 
         holder.bodyView.setText(message.text);
         holder.senderView.setText(message.name);
-
+//http://i.imgur.com/Tny2C2o.png THIS IS THE BLUE ONE
         Picasso.with(messageContext).
-                load("http://www.iconsdb.com/icons/preview/caribbean-blue/contacts-xxl.png").
+                load("http://i.imgur.com/7Gem69x.png").
                 placeholder(R.mipmap.ic_launcher).
                 into(holder.thumbnailImageView);
 

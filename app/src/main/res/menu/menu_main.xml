@@ -5,4 +5,6 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/add_user" android:title="@string/add_user"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/to_map" android:title="@string/to_map"
+        android:orderInCategory="100" app:showAsAction="never" />
 </menu>
