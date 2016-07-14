@@ -1,5 +1,6 @@
 package com.example.jamiepatel.pusherchat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ public class LoginActivity extends ActionBarActivity {
 
     EditText phonenumberInput;
     EditText usernameInput;
+    public static String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,10 @@ public class LoginActivity extends ActionBarActivity {
 
         String username = usernameInput.getText().toString();
         String phonenumber = phonenumberInput.getText().toString();
+        this.username = username;
+
+
+
         if(username.length() == 0 && phonenumber.length() < 10){
             Toast myToast = Toast.makeText(getApplicationContext(),
                     "Please enter a name and phone number", Toast.LENGTH_SHORT);

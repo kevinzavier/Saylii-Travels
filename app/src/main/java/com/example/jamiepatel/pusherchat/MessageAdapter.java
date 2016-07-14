@@ -2,6 +2,8 @@ package com.example.jamiepatel.pusherchat;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +14,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 
+
 public class MessageAdapter extends BaseAdapter {
 
     Context messageContext;
     List<Message> messageList;
+    String profileColor;
 
 
     public MessageAdapter(Context context, List<Message> messages){
@@ -58,9 +62,20 @@ public class MessageAdapter extends BaseAdapter {
 
         holder.bodyView.setText(message.text);
         holder.senderView.setText(message.name);
+
 //http://i.imgur.com/Tny2C2o.png THIS IS THE BLUE ONE
+        //http://i.imgur.com/7Gem69x.png THIS IS ORANGE
+
+        //Log.i("THE thumbnail", message.name);
+        //Log.i("THE TEXT", message.text);
+        if(LoginActivity.username.equals(message.name)){
+            profileColor = "http://i.imgur.com/Tny2C2o.png";
+        }
+        else {
+            profileColor = "http://i.imgur.com/7Gem69x.png";
+        }
         Picasso.with(messageContext).
-                load("http://i.imgur.com/7Gem69x.png").
+                load(profileColor).
                 placeholder(R.mipmap.ic_launcher).
                 into(holder.thumbnailImageView);
 

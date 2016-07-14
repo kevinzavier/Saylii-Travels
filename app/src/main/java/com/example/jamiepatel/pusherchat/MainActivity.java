@@ -133,14 +133,15 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
-        /*
+
         if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP){
             postMessage();
         }
-        */
+
         return true;
 
     }
+
 
     public void postMessage()  {
         String text = messageInput.getText().toString();
@@ -153,11 +154,13 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
         params.put("text", text);
         params.put("name", username);
+        params.put("thumbnail", "http://i.imgur.com/Tny2C2o.png");
         params.put("time", new Date().getTime());
 
         AsyncHttpClient client = new AsyncHttpClient();
 
         Log.i("README", phonenumber);
+
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phonenumber, null,"FROM TRAV CHAT: " + text, null, null);
 
@@ -193,6 +196,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         params.put("text", body);
         params.put("name", name);
         params.put("time", new Date().getTime());
+        params.put("thumbnail", "BBRUHHHHHHHHHHHHHHH");
 
         AsyncHttpClient client = new AsyncHttpClient();
         //Log.i("USERNAME", name);
@@ -251,7 +255,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("LISTEING", "ITS GOOD");
+            //Log.i("LISTEING", "ITS GOOD");
 
             //postMessage();
             //---get the SMS message passed in---
