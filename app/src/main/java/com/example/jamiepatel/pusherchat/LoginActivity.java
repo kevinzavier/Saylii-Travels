@@ -30,11 +30,12 @@ import java.util.Map;
 
 public class LoginActivity extends ActionBarActivity {
 
-    EditText phonenumberInput;
+
     EditText usernameInput;
     public static String username;
 
     //Below is for the multiautocomplete view
+    private ArrayList<String> phonenumbers = new ArrayList<String>();
     private ArrayList<Map<String, String>> mPeopleList;
     private SimpleAdapter mAdapter;
     private MultiAutoCompleteTextView mTxtPhoneNo;
@@ -48,13 +49,11 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         usernameInput = (EditText) findViewById(R.id.username_input);
-        //usernameInput.setOnKeyListener(this);
-        phonenumberInput = (EditText) findViewById(R.id.phonenumber_input);
-        //phonenumberInput.setOnKeyListener(this);
+        mTxtPhoneNo = (MultiAutoCompleteTextView) findViewById(R.id.mmWhoNo);
 
         mPeopleList = new ArrayList<Map<String, String>>();
         PopulatePeopleList();
-        mTxtPhoneNo = (MultiAutoCompleteTextView) findViewById(R.id.mmWhoNo);
+
 
         mAdapter = new SimpleAdapter(this, mPeopleList, R.layout.custcontview ,new String[] { "Name", "Phone" , "Type" }, new int[] { R.id.ccontName, R.id.ccontNo, R.id.ccontType });
 
@@ -74,13 +73,14 @@ public class LoginActivity extends ActionBarActivity {
                 Map<String, String> map = (Map<String, String>) av.getItemAtPosition(index);
 
                 String name  = map.get("Name");
-                //String number = map.get("Phone");
+                String number = map.get("Phone");
+                phonenumbers.add(number);
 
                 mTxtPhoneNo.setText(original + name + ", ");
                 original = mTxtPhoneNo.getText().toString();
                 int pos = mTxtPhoneNo.getText().toString().length();
                 mTxtPhoneNo.setSelection(pos);
-                //myTxtPhoneNo.getText().setSelection(position);
+
 
             }
 
@@ -121,14 +121,14 @@ public class LoginActivity extends ActionBarActivity {
 
 
         String username = usernameInput.getText().toString();
-        String phonenumber = phonenumberInput.getText().toString();
+        //String phonenumber = mTxtPhoneNo.getText().toString();
         this.username = username;
 
 
 
-        if(username.length() == 0 && phonenumber.length() < 10){
+        if(username.length() == 0 && phonenumbers.size() == 0){
             Toast myToast = Toast.makeText(getApplicationContext(),
-                    "Please enter a name and phone number", Toast.LENGTH_SHORT);
+                    "Please enter a name and create a group", Toast.LENGTH_SHORT);
             myToast.show();
             return false;
         }
@@ -138,14 +138,18 @@ public class LoginActivity extends ActionBarActivity {
             myToast.show();
             return false;
         }
-        if(phonenumber.length() < 10){
+        if(phonenumbers.size() ==0){
             Toast myToast = Toast.makeText(getApplicationContext(),
-                    "Please enter a valid phone number", Toast.LENGTH_SHORT);
+                    "Please create a group", Toast.LENGTH_SHORT);
             myToast.show();
             return false;
         }
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("username", username);
+        String phonenumber = "";
+        for(String x: phonenumbers){
+            phonenumber += x + " ";
+        }
         intent.putExtra("phonenumber", phonenumber);
         startActivity(intent);
         return true;
