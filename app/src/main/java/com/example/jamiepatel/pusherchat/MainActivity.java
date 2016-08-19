@@ -39,6 +39,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
     public static String SMSRECEVID="custom.action.SMSRECEVEDINFO";
     final String MESSAGES_ENDPOINT = "http://pusher-chat-demo.herokuapp.com";
 
+    private ArrayList<String> phonenumbers = new ArrayList<String>();
     MessageAdapter messageAdapter;
     EditText messageInput;
     Button sendButton;
@@ -46,6 +47,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
     String phonenumber;
     SmsReceiver myReceiver;
     private int counter = 0;
+    String[] phonelist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,21 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
         username = this.getIntent().getExtras().getString("username");  //from LoginActivity
         phonenumber = this.getIntent().getExtras().getString("phonenumber");
+        phonenumbers = this.getIntent().getExtras().getStringArrayList("phonenumbers");
+        Log.i("ORIGINAL", phonenumber);
+        phonelist = phonenumber.split("///");
+
+        String total = "";
+        for(int i = 0; i < phonelist.length; i++) {
+            for(int j = 0; j <phonelist[i].length(); j++) {
+                if (Character.isDigit(phonelist[i].charAt(j))) {
+                    total += phonelist[i].charAt(j);
+                }
+            }
+            total += " ";
+            Log.i("PHONE NUMBER",phonelist[i]);
+        }
+
         Toast.makeText(this, "Welcome, " + username + "!", Toast.LENGTH_LONG).show();
 
         messageInput = (EditText) findViewById(R.id.message_input);
@@ -162,7 +179,10 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         Log.i("README", phonenumber);
 
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phonenumber, null,"FROM TRAV CHAT: " + text, null, null);
+        for(int i = 0; i < phonelist.length; i++) {
+            //smsManager.sendTextMessage(phonelist[i], null, "FROM TRAV CHAT: " + text, null, null);
+            Log.i("PHONE NUMBER",phonelist[i]);
+        }
 
         //PendingIntent sendPendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(SMS_SEND), 0);
 
@@ -189,6 +209,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
     }
 
+    //this one is for receiving messages
     public void postMessage(String name, String body)  {
 
         RequestParams params = new RequestParams();
@@ -282,7 +303,17 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
                             */
 
                     //start(intent);
-                    postMessage(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody().toString());
+                    //TODO
+                    String x = msgs[i].getOriginatingAddress();
+                    x = x.substring(x.indexOf(")"));
+                    for(int j = 0; j < x.length(); j++) {
+                        if(Character.isDigit(x.charAt(j))){
+                            x += x.charAt(j);
+                        }
+                    }
+                    //if(phonenumbers.contains(msgs[i].getOriginatingAddress())) {
+                        postMessage(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody().toString());
+                    //}
                 }
             }
 

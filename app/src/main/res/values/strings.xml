@@ -2,7 +2,7 @@
     <string name="app_name">Trav Chat</string>
 
     <string name="welcome">Please enter your name</string>
-    <string name="prompt">Please enter the number you want to message</string>
+    <string name="prompt">Please type in the person(s) you want to message</string>
     <string name="action_settings">Settings</string>
     <string name="add_user">Add People</string>
     <string name="to_map">Back to Map</string>

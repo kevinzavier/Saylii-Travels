@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import android.content.pm.PackageManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 //
@@ -36,13 +38,15 @@ public class LoginActivity extends ActionBarActivity {
 
     //Below is for the multiautocomplete view
     private ArrayList<String> phonenumbers = new ArrayList<String>();
+    private ArrayList<String> names = new ArrayList<String>();
     private ArrayList<Map<String, String>> mPeopleList;
     private SimpleAdapter mAdapter;
     private MultiAutoCompleteTextView mTxtPhoneNo;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     private Cursor people;
     private Cursor phones;
-    String original = "";
+    private String original = "";
+    private boolean count = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,7 @@ public class LoginActivity extends ActionBarActivity {
         mTxtPhoneNo.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
 
+
         mTxtPhoneNo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -74,10 +79,20 @@ public class LoginActivity extends ActionBarActivity {
 
                 String name  = map.get("Name");
                 String number = map.get("Phone");
-                phonenumbers.add(number);
 
+                //if()
+                phonenumbers.add(number);
+                names.add(name);
+
+                if(count){
+
+                    original = mTxtPhoneNo.getText().toString();
+                    original = original.substring(0,original.lastIndexOf("{"));
+                    //Log.i("THIS IS IMPORTANT", original);
+                }
+                count = true;
                 mTxtPhoneNo.setText(original + name + ", ");
-                original = mTxtPhoneNo.getText().toString();
+                //original = mTxtPhoneNo.getText().toString();
                 int pos = mTxtPhoneNo.getText().toString().length();
                 mTxtPhoneNo.setSelection(pos);
 
@@ -124,6 +139,19 @@ public class LoginActivity extends ActionBarActivity {
         //String phonenumber = mTxtPhoneNo.getText().toString();
         this.username = username;
 
+        String final_names = mTxtPhoneNo.getText().toString();
+        String[] result = final_names.split(", ");
+        ArrayList<String> result_list = new ArrayList<String>(Arrays.asList(result));
+        for(int i = 0; i < result_list.size(); i++){
+            Log.i("NAMES", result_list.get(i));
+        }
+
+        for(int i = names.size() - 1; i >= 0; --i){
+            if(!(result_list.contains(names.get(i)))){
+                phonenumbers.remove(i);
+            }
+        }
+
 
 
         if(username.length() == 0 && phonenumbers.size() == 0){
@@ -148,12 +176,17 @@ public class LoginActivity extends ActionBarActivity {
         intent.putExtra("username", username);
         String phonenumber = "";
         for(String x: phonenumbers){
-            phonenumber += x + " ";
+            phonenumber += x + "///";
         }
+        Log.i("PHONE NUMBERS", phonenumber);
+
         intent.putExtra("phonenumber", phonenumber);
+        intent.putExtra("phonenumbers", phonenumbers);
+        intent.putExtra("names", result_list);
         startActivity(intent);
         return true;
     }
+
     public void PopulatePeopleList()
     {
         /*
@@ -208,14 +241,16 @@ public class LoginActivity extends ActionBarActivity {
                         NamePhoneType.put("Type", "Work");
                     else if(numberType.equals("1"))
                         NamePhoneType.put("Type", "Home");
-                    else if(numberType.equals("2"))
-                        NamePhoneType.put("Type",  "Mobile");
+                    else if(numberType.equals("2")) {
+                        NamePhoneType.put("Type", "Mobile");
+                        mPeopleList.add(NamePhoneType);
+                    }
                     else
                         NamePhoneType.put("Type", "Other");
 
 
                     //Then add this map to the list.
-                    mPeopleList.add(NamePhoneType);
+                    //mPeopleList.add(NamePhoneType);
                 }
                 phones.close();
             }
