@@ -2,11 +2,13 @@ package com.example.jamiepatel.pusherchat;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -74,6 +76,12 @@ public class MapActivity extends Activity{
 
 
 
+    }
+    public void onBottonTap(View v){
+        if(v.getId()==R.id.button3){
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
 
