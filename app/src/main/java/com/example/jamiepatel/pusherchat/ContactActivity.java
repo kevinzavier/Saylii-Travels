@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,6 +28,8 @@ public class ContactActivity extends Activity{
     EditText email;
     Button add;
     List<Contact> Contacts = new ArrayList<Contact>();
+    ListView contactListView;
+
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -36,9 +41,12 @@ public class ContactActivity extends Activity{
         add = (Button) findViewById(R.id.addContact);
         add.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Toast.makeText(ContactActivity.this, "Your contact has been added", Toast.LENGTH_LONG).show();
+                addContact(name.getText().toString(), phone.getText().toString());
+                Toast.makeText(ContactActivity.this, name.getText().toString() + " has been added", Toast.LENGTH_LONG).show();
             }
         });
+        contactListView = (ListView) findViewById(R.id.listView);
+        
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
 
         tabHost.setup();
@@ -70,11 +78,35 @@ public class ContactActivity extends Activity{
 
             }
         });
-
     }
+
+    private void addContact(String name, String phone) {
+        Contacts.add(new Contact(name,phone));
+    }
+
+
     private class ContactListAdapter extends ArrayAdapter<Contact>{
         public ContactListAdapter(){
             super(ContactActivity.this, R.layout.listview_item, Contacts);
         }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent){
+            if(view == null){
+                view = getLayoutInflater().inflate(R.layout.listview_item, parent, false);
+            }
+
+            Contact currentContact = Contacts.get(position);
+
+            TextView name = (TextView) view.findViewById(R.id.contactName);
+            name.setText(currentContact.getName());
+            TextView phone = (TextView) view.findViewById(R.id.phone);
+            phone.setText(currentContact.getPhone());
+
+            return view;
+
+        }
     }
+
+
 }
