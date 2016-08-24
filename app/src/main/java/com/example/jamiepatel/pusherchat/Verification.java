@@ -47,7 +47,7 @@ public class Verification extends Activity{
                         startActivity(intent);
                     }
                     // Perform action on key press
-                    Toast.makeText(Verification.this, "it works", Toast.LENGTH_SHORT).show();
+
                     return true;
                 }
                 return false;

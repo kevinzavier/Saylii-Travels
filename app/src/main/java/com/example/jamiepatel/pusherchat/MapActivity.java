@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.mapbox.geocoder.MapboxGeocoder;
 import com.mapbox.mapboxsdk.annotations.MarkerViewOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -40,6 +41,7 @@ public class MapActivity extends Activity{
     double mylongitude;
     double mylatitude;
     String provider;
+    boolean first = true;
 
 
     MapView mapView;
@@ -57,7 +59,7 @@ public class MapActivity extends Activity{
         provider = locationManager.getBestProvider(criteria, false);
         Location location = locationManager.getLastKnownLocation(provider);
         if(location == null){
-            Toast.makeText(MapActivity.this, "WHY IS THIS NULL", Toast.LENGTH_LONG).show();
+            Toast.makeText(MapActivity.this, "please reopen the app, and turn on location", Toast.LENGTH_LONG).show();
             mylatitude = 34.233919;
             mylongitude = -118.250664;
         }
@@ -92,23 +94,41 @@ public class MapActivity extends Activity{
                 mapboxMap.setOnMapClickListener(new MapboxMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(@NonNull LatLng point) {
-                        CameraPosition position = new CameraPosition.Builder()
-                                .target(new LatLng(mylatitude, mylongitude)) // Sets the new camera position
-                                .zoom(17) // Sets the zoom
-                                .bearing(180) // Rotate the camera
-                                .tilt(30) // Set the camera tilt
-                                .build(); // Creates a CameraPosition from the builder
+                        if(first) {
+                            CameraPosition position = new CameraPosition.Builder()
+                                    .target(new LatLng(mylatitude, mylongitude)) // Sets the new camera position
+                                    .zoom(11) // Sets the zoom
+                                    .bearing(180) // Rotate the camera
+                                    .tilt(30) // Set the camera tilt
+                                    .build(); // Creates a CameraPosition from the builder
 
-                        mapboxMap.animateCamera(CameraUpdateFactory
-                                .newCameraPosition(position), 7000);
+                            mapboxMap.animateCamera(CameraUpdateFactory
+                                    .newCameraPosition(position), 7000);
+                        }
+                        first = false;
+                    }
+                });
+                mapboxMap.setOnMapLongClickListener(new MapboxMap.OnMapLongClickListener() {
+                    @Override
+                    public void onMapLongClick(@NonNull LatLng point) {
+                        Toast.makeText(MapActivity.this, "Added a new Marker", Toast.LENGTH_LONG).show();
+                        mapboxMap.addMarker(new MarkerViewOptions()
+                                .position(new LatLng(point.getLatitude(), point.getLongitude()))
+                                .title("Custom")
+                                .snippet("custom marker"));
                     }
                 });
                 mapboxMap.addMarker(new MarkerViewOptions()
                         .position(new LatLng(mylatitude, mylongitude))
-                        .title("Sydney Opera House")
-                        .snippet("Bennelong Point, Sydney NSW 2000, Australia"));
+                        .title("You")
+                        .snippet("You are currently here"));
             }
         });
+
+        MapboxGeocoder client = new MapboxGeocoder.Builder()
+                .setAccessToken("pk.eyJ1Ijoia2V2aW56YXZpZXIiLCJhIjoiY2lyZHRydWJpMDFqdmdobTN1OHVzZHZsNSJ9.1kycJM_bgrwAsqHqznpuZA")
+                .setLocation("The White House")
+                .build();
 
 
 
