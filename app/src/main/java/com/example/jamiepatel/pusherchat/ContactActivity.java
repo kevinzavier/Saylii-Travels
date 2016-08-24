@@ -42,11 +42,12 @@ public class ContactActivity extends Activity{
         add.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 addContact(name.getText().toString(), phone.getText().toString());
+                populateList();
                 Toast.makeText(ContactActivity.this, name.getText().toString() + " has been added", Toast.LENGTH_LONG).show();
             }
         });
         contactListView = (ListView) findViewById(R.id.listView);
-        
+
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
 
         tabHost.setup();
@@ -82,6 +83,11 @@ public class ContactActivity extends Activity{
 
     private void addContact(String name, String phone) {
         Contacts.add(new Contact(name,phone));
+    }
+
+    private void populateList(){
+        ArrayAdapter<Contact> adapter = new ContactListAdapter();
+        contactListView.setAdapter(adapter);
     }
 
 
