@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.mapbox.mapboxsdk.annotations.MarkerViewOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -55,9 +56,15 @@ public class MapActivity extends Activity{
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
         Location location = locationManager.getLastKnownLocation(provider);
-
-        mylongitude = location.getLongitude();
-        mylatitude = location.getLatitude();
+        if(location == null){
+            Toast.makeText(MapActivity.this, "WHY IS THIS NULL", Toast.LENGTH_LONG).show();
+            mylatitude = 34.233919;
+            mylongitude = -118.250664;
+        }
+        else {
+            mylongitude = location.getLongitude();
+            mylatitude = location.getLatitude();
+        }
 
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState);
@@ -96,8 +103,13 @@ public class MapActivity extends Activity{
                                 .newCameraPosition(position), 7000);
                     }
                 });
+                mapboxMap.addMarker(new MarkerViewOptions()
+                        .position(new LatLng(mylatitude, mylongitude))
+                        .title("Sydney Opera House")
+                        .snippet("Bennelong Point, Sydney NSW 2000, Australia"));
             }
         });
+
 
 
         //Below is where I try to set the Camera
@@ -110,7 +122,7 @@ public class MapActivity extends Activity{
 
 
 
-        Toast.makeText(MapActivity.this, String.valueOf(mylatitude) + "---" + String.valueOf(mylongitude), Toast.LENGTH_LONG).show();
+
         Log.i("THE LAT IS HERE", String.valueOf(mylatitude));
         Log.i("THE LONG IS HERE", String.valueOf(mylongitude));
 
