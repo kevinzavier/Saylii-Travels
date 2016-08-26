@@ -111,6 +111,7 @@ public class MapActivity extends Activity{
                 mapboxMap.setOnMapLongClickListener(new MapboxMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(@NonNull LatLng point) {
+                        startActivity(new Intent(MapActivity.this, PopMenu.class));
                         Toast.makeText(MapActivity.this, "Added a new Marker", Toast.LENGTH_LONG).show();
                         mapboxMap.addMarker(new MarkerViewOptions()
                                 .position(new LatLng(point.getLatitude(), point.getLongitude()))
