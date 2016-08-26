@@ -1,6 +1,8 @@
 package com.example.jamiepatel.pusherchat;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -22,7 +24,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        db.execSQL("CREATE TABLE" + TABLE_CONTACTS + "(" + KEY_ID + "INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT," + KEY_PHONE + " TEXT)");
+        db.execSQL("CREATE TABLE" + TABLE_CONTACTS + "(" + KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT," + KEY_PHONE + " TEXT)");
     }
 
     @Override
@@ -32,4 +34,31 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
+    public void createContact(Contact contact){
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_NAME, contact.getName());
+        values.put(KEY_PHONE, contact.getPhone());
+
+        db.insert(TABLE_CONTACTS, null, values);
+        db.close();
+    }
+
+
+    public Contact getContact(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_CONTACTS, new String[]{KEY_ID, KEY_NAME, KEY_PHONE}, KEY_ID + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+
+        Contact contact = new Contact(Integer.parseInt(cursor.getString(0)), cursor.getString(1),  cursor.getString(2));
+        return contact;
+
+
+
+    }
 }

@@ -41,7 +41,7 @@ public class ContactActivity extends Activity{
         add = (Button) findViewById(R.id.addContact);
         add.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                addContact(name.getText().toString(), phone.getText().toString());
+                addContact(0, name.getText().toString(), phone.getText().toString());
                 populateList();
                 Toast.makeText(ContactActivity.this, name.getText().toString() + " has been added", Toast.LENGTH_LONG).show();
             }
@@ -81,8 +81,8 @@ public class ContactActivity extends Activity{
         });
     }
 
-    private void addContact(String name, String phone) {
-        Contacts.add(new Contact(name,phone));
+    private void addContact(int id, String name, String phone) {
+        Contacts.add(new Contact(id, name,phone));
     }
 
     private void populateList(){

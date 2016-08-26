@@ -6,8 +6,10 @@ package com.example.jamiepatel.pusherchat;
 public class Contact {
     private String myname;
     private String myphone;
+    private int myid;
 
-    public Contact(String name, String phone){
+    public Contact(int id, String name, String phone){
+        myid = id;
         myname = name;
         myphone = phone;
 
