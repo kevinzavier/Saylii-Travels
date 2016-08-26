@@ -4,7 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kevin on 8/25/16.
@@ -56,9 +60,52 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         }
 
         Contact contact = new Contact(Integer.parseInt(cursor.getString(0)), cursor.getString(1),  cursor.getString(2));
+        db.close();
         return contact;
 
 
 
+    }
+
+    public void deleteContact(Contact contact){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_CONTACTS, KEY_ID + "=?", new String[] {String.valueOf(contact.getId())});
+        db.close();
+    }
+
+    public int getContactsCount(){
+        //SELECT * FROM CONTACTS
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CONTACTS, null);
+        cursor.close();
+        db.close();
+
+        return cursor.getCount();
+    }
+
+    public int updateContact(Contact contact){
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_NAME, contact.getName());
+        values.put(KEY_PHONE, contact.getPhone());
+
+        return db.update(TABLE_CONTACTS, values, KEY_ID + "+?", new String[]{String.valueOf(contact.getId())});
+    }
+
+    public List<Contact> getAllContacts(){
+        List<Contact> contacts = new ArrayList<Contact>();
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM" + TABLE_CONTACTS, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Contact contact = new Contact(Integer.parseInt(cursor.getString(0)),cursor.getString(1), cursor.getString(2) );
+                contacts.add(contact);
+            }while(cursor.moveToNext());
+
+        }
+        return contacts;
     }
 }

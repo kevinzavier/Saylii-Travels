@@ -21,4 +21,7 @@ public class Contact {
     public String getPhone(){
         return myphone;
     }
+    public int getId(){
+        return myid;
+    }
 }
