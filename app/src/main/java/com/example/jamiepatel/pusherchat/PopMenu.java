@@ -2,17 +2,49 @@ package com.example.jamiepatel.pusherchat;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by kevin on 8/26/16.
  */
 public class PopMenu extends Activity {
+    Button submit;
+    EditText summary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popup_window);
+
+        submit = (Button) findViewById(R.id.Submit);
+        submit.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Toast.makeText(PopMenu.this, "Marker has been added", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        summary.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                submit.setEnabled(!summary.getText().toString().trim().isEmpty());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -20,6 +52,8 @@ public class PopMenu extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width * .5), (int)(height * .5));
+        getWindow().setLayout((int)(width * .8), (int)(height * .8));
+
+
     }
 }
