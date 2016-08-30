@@ -16,6 +16,7 @@ import android.widget.Toast;
 public class PopMenu extends Activity {
     Button submit;
     EditText summary;
+    String info = "";
     public boolean closed;
 
     @Override
@@ -27,6 +28,8 @@ public class PopMenu extends Activity {
         summary = (EditText) findViewById(R.id.summary);
         submit.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                //to check if anyting weird happened
+                info = summary.getText().toString();
                 closed = true;
                 finish();
             }

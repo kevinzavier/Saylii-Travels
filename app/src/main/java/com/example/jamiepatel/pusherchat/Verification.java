@@ -17,11 +17,13 @@ import com.loopj.android.http.RequestParams;
  */
 public class Verification extends Activity{
     EditText messageInput;
+    EditText nameInput;
     private String myRandom;
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify);
         messageInput = (EditText) findViewById(R.id.message_input);
+        nameInput = (EditText) findViewById(R.id.name_input);
         //RequestParams params = new RequestParams();
         //params.put("random", myRandom);
 
@@ -34,16 +36,31 @@ public class Verification extends Activity{
         messageInput.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
+                //the next activity
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    
+                    //to see if the name edittext is filled in
+                    boolean nameEmpty = nameInput.getText().toString().trim().isEmpty();
+                    String name = nameInput.getText().toString();
 
-                    if(myRandom.equals(messageInput.getText().toString())){
+                    if(nameEmpty){
+                        Toast.makeText(Verification.this, "Please enter your name!", Toast.LENGTH_LONG).show();
+                    }
+                    //if the verification number is right
+                    else if(myRandom.equals(messageInput.getText().toString())){
+                        startActivity(intent);
+                        intent.putExtra("name", name);
                         startActivity(intent);
                     }
+                    //if verification number is not right
                     else{
                         Toast.makeText(Verification.this, "Wrong verification number please try again!", Toast.LENGTH_LONG).show();
                         messageInput.setText("");
+                        startActivity(intent);
+                        intent.putExtra("name", name);
                         startActivity(intent);
                     }
                     // Perform action on key press
