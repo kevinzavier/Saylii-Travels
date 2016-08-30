@@ -16,16 +16,19 @@ import android.widget.Toast;
 public class PopMenu extends Activity {
     Button submit;
     EditText summary;
+    public boolean closed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)  ;
         setContentView(R.layout.popup_window);
 
         submit = (Button) findViewById(R.id.Submit);
+        summary = (EditText) findViewById(R.id.summary);
         submit.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Toast.makeText(PopMenu.this, "Marker has been added", Toast.LENGTH_LONG).show();
+                closed = true;
+                finish();
             }
         });
 

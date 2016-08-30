@@ -42,6 +42,7 @@ public class MapActivity extends Activity{
     double mylatitude;
     String provider;
     boolean first = true;
+    int zoomfactor;
 
 
     MapView mapView;
@@ -62,10 +63,12 @@ public class MapActivity extends Activity{
             Toast.makeText(MapActivity.this, "please reopen the app, and turn on location", Toast.LENGTH_LONG).show();
             mylatitude = 34.233919;
             mylongitude = -118.250664;
+            zoomfactor = 25;
         }
         else {
             mylongitude = location.getLongitude();
             mylatitude = location.getLatitude();
+            zoomfactor = 11;
         }
 
         mapView = (MapView) findViewById(R.id.mapview);
@@ -78,6 +81,7 @@ public class MapActivity extends Activity{
             public void onLocationChanged(Location location) {
                 mylongitude = location.getLongitude();
                 mylatitude = location.getLatitude();
+                zoomfactor = 11;
             }
             public void onStatusChanged(String provider, int status, Bundle extras){}
             public void onProviderDisabled(String provider){}
@@ -95,9 +99,10 @@ public class MapActivity extends Activity{
                     @Override
                     public void onMapClick(@NonNull LatLng point) {
                         if(first) {
+                            //makes the camera move
                             CameraPosition position = new CameraPosition.Builder()
                                     .target(new LatLng(mylatitude, mylongitude)) // Sets the new camera position
-                                    .zoom(11) // Sets the zoom
+                                    .zoom(zoomfactor) // Sets the zoom
                                     .bearing(180) // Rotate the camera
                                     .tilt(30) // Set the camera tilt
                                     .build(); // Creates a CameraPosition from the builder
@@ -105,6 +110,7 @@ public class MapActivity extends Activity{
                             mapboxMap.animateCamera(CameraUpdateFactory
                                     .newCameraPosition(position), 7000);
                         }
+                        //so it doesn't do this again on clicks
                         first = false;
                     }
                 });
