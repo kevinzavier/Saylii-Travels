@@ -44,6 +44,12 @@ public class MapActivity extends Activity{
     String provider;
     boolean first = true;
     int zoomfactor;
+    double markerLat;
+    double markerLong;
+    MapboxMap myMapboxMap;
+
+
+
 
 
     MapView mapView;
@@ -95,6 +101,9 @@ public class MapActivity extends Activity{
             @Override
             public void onMapReady(final MapboxMap mapboxMap) {
 
+                //so we can access it outside
+                myMapboxMap = mapboxMap;
+
                 // When user clicks the map, animate to new camera location
                 mapboxMap.setOnMapClickListener(new MapboxMap.OnMapClickListener() {
                     @Override
@@ -118,12 +127,12 @@ public class MapActivity extends Activity{
                 mapboxMap.setOnMapLongClickListener(new MapboxMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(@NonNull LatLng point) {
-                        startActivity(new Intent(MapActivity.this, PopMenu.class));
-                        Toast.makeText(MapActivity.this, "Added a new Marker", Toast.LENGTH_LONG).show();
-                        mapboxMap.addMarker(new MarkerViewOptions()
-                                .position(new LatLng(point.getLatitude(), point.getLongitude()))
-                                .title("Custom")
-                                .snippet("custom marker"));
+                        //HERE
+                        Log.i("", "BRUHHHHHHHHHHHHHH");
+                        Intent i = new Intent(MapActivity.this, PopMenu.class);
+                        startActivityForResult(i, 0);
+                        markerLat = point.getLatitude();
+                        markerLong = point.getLongitude();
                     }
                 });
                 Bundle extras = getIntent().getExtras();
@@ -135,23 +144,13 @@ public class MapActivity extends Activity{
                         .title(myname)
                         .snippet("You are currently here"));
             }
+
         });
-        //TODO use onAcitvityResult to make the custom markers
 
         MapboxGeocoder client = new MapboxGeocoder.Builder()
                 .setAccessToken("pk.eyJ1Ijoia2V2aW56YXZpZXIiLCJhIjoiY2lyZHRydWJpMDFqdmdobTN1OHVzZHZsNSJ9.1kycJM_bgrwAsqHqznpuZA")
                 .setLocation("The White House")
                 .build();
-
-
-
-        //Below is where I try to set the Camera
-        //TODO this part is not working, the camera is still pointed to New York (that is what I set it to in the xml file)
-        //LatLng myLatLng = new LatLng(latitude, longitude);
-        //CameraPosition.Builder cam = new CameraPosition.Builder();
-        //cam.target(myLatLng);
-
-
 
 
 
@@ -161,6 +160,24 @@ public class MapActivity extends Activity{
 
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        Log.i("", "INTERESTING");
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            Bundle basket = data.getExtras();
+            String info = basket.getString("info");
+            myMapboxMap.addMarker(new MarkerViewOptions()
+                    .position(new LatLng(markerLat, markerLong))
+                    .title(myname)
+                    .snippet(info));
+            Toast.makeText(MapActivity.this, "Added a new Marker", Toast.LENGTH_LONG).show();
+        }
+        else{
+
+        }
     }
 
     public void onBottonTap(View v){

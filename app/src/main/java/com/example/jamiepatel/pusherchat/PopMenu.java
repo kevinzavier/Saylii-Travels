@@ -1,10 +1,12 @@
 package com.example.jamiepatel.pusherchat;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +18,8 @@ import android.widget.Toast;
 public class PopMenu extends Activity {
     Button submit;
     EditText summary;
-    public String info = "";
-    public boolean closed;
+    private String myInfo = "";
+    String setData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -28,9 +30,19 @@ public class PopMenu extends Activity {
         summary = (EditText) findViewById(R.id.summary);
         submit.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                //to check if anyting weird happened
-                info = summary.getText().toString();
-                closed = true;
+
+
+                myInfo = summary.getText().toString();
+
+
+                Log.i("","WTFFFFFFFFFFFFFFFFFf");
+                Intent person = new Intent();
+                Bundle backpack = new Bundle();
+                backpack.putString("info", myInfo);
+                person.putExtras(backpack);
+                setResult(RESULT_OK, person);
+
+
                 finish();
             }
         });
