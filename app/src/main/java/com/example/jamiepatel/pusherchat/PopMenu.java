@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class PopMenu extends Activity {
     Button submit;
     EditText summary;
-    String info = "";
+    public String info = "";
     public boolean closed;
 
     @Override

@@ -33,6 +33,7 @@ import java.util.List;
  * Created by kevin on 8/16/16.
  */
 public class MapActivity extends Activity{
+    String myname ="";
     Button chat;
     Button addfriends;
     Button events;
@@ -125,12 +126,17 @@ public class MapActivity extends Activity{
                                 .snippet("custom marker"));
                     }
                 });
+                Bundle extras = getIntent().getExtras();
+                if(extras != null) {
+                    myname = extras.getString("name");
+                }
                 mapboxMap.addMarker(new MarkerViewOptions()
                         .position(new LatLng(mylatitude, mylongitude))
-                        .title("You")
+                        .title(myname)
                         .snippet("You are currently here"));
             }
         });
+        //TODO use onAcitvityResult to make the custom markers
 
         MapboxGeocoder client = new MapboxGeocoder.Builder()
                 .setAccessToken("pk.eyJ1Ijoia2V2aW56YXZpZXIiLCJhIjoiY2lyZHRydWJpMDFqdmdobTN1OHVzZHZsNSJ9.1kycJM_bgrwAsqHqznpuZA")

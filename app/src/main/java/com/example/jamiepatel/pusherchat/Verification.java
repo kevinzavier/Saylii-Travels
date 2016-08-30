@@ -41,7 +41,7 @@ public class Verification extends Activity{
 
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    
+
                     //to see if the name edittext is filled in
                     boolean nameEmpty = nameInput.getText().toString().trim().isEmpty();
                     String name = nameInput.getText().toString();
@@ -59,7 +59,6 @@ public class Verification extends Activity{
                     else{
                         Toast.makeText(Verification.this, "Wrong verification number please try again!", Toast.LENGTH_LONG).show();
                         messageInput.setText("");
-                        startActivity(intent);
                         intent.putExtra("name", name);
                         startActivity(intent);
                     }
