@@ -70,7 +70,7 @@ public class MapActivity extends Activity{
             Toast.makeText(MapActivity.this, "please reopen the app, and turn on location", Toast.LENGTH_LONG).show();
             mylatitude = 34.233919;
             mylongitude = -118.250664;
-            zoomfactor = 25;
+            zoomfactor = 7;
         }
         else {
             mylongitude = location.getLongitude();
@@ -181,8 +181,12 @@ public class MapActivity extends Activity{
     }
 
     public void onBottonTap(View v){
-        if(v.getId()==R.id.button3){
+        if(v.getId()==R.id.button4){
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        }
+        if(v.getId()==R.id.button3){
+            Intent intent = new Intent(getApplicationContext(), ContactActivity.class);
             startActivity(intent);
         }
     }

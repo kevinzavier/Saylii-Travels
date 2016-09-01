@@ -25,23 +25,26 @@ public class ContactActivity extends Activity{
 
     EditText name;
     EditText phone;
-    EditText email;
     Button add;
     List<Contact> Contacts = new ArrayList<Contact>();
     ListView contactListView;
+    DatabaseHandler dbHandler;
 
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_contacts);
 
         name = (EditText) findViewById(R.id.Name);
         phone = (EditText) findViewById(R.id.Phone);
-        email = (EditText) findViewById(R.id.Email);
         add = (Button) findViewById(R.id.addContact);
+        dbHandler = new DatabaseHandler(getApplicationContext());
         add.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                addContact(0, name.getText().toString(), phone.getText().toString());
+                Contact contact = new Contact(dbHandler.getContactsCount(), name.getText().toString(), phone.getText().toString());
+                dbHandler.createContact(contact);
+                Contacts.add(contact);
+                //addContact(0, name.getText().toString(), phone.getText().toString());
                 populateList();
                 Toast.makeText(ContactActivity.this, name.getText().toString() + " has been added", Toast.LENGTH_LONG).show();
             }
@@ -79,6 +82,17 @@ public class ContactActivity extends Activity{
 
             }
         });
+
+        List<Contact> addableContacts = dbHandler.getAllContacts();
+        int contactCount = dbHandler.getContactsCount();
+
+        for(int i = 0; i < contactCount; i++){
+            Contacts.add(addableContacts.get(i));
+        }
+
+        if(!addableContacts.isEmpty()){
+            populateList();
+        }
     }
 
     private void addContact(int id, String name, String phone) {

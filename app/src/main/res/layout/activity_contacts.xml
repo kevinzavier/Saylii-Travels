@@ -14,9 +14,9 @@
             android:orientation="vertical">
 
             <TabWidget
-                android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></TabWidget>
+                android:layout_height="wrap_content"
+                android:id="@android:id/tabs"></TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -77,16 +77,6 @@
                         android:hint="Phone Number"
                         android:ems="10"
                         android:id="@+id/Phone"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="15dp" />
-
-                    <EditText
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
-                        android:ems="10"
-                        android:hint="Email"
-                        android:id="@+id/Email"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="15dp" />
 

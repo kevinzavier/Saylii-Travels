@@ -41,7 +41,8 @@
         android:id="@+id/button4"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/button3"
-        android:layout_toEndOf="@+id/button3" />
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="onBottonTap" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -50,7 +51,8 @@
         android:text="1"
         android:id="@+id/button5"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="onBottonTap" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -60,7 +62,8 @@
         android:id="@+id/button6"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="onBottonTap" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -70,7 +73,8 @@
         android:id="@+id/button7"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/button6"
-        android:layout_toStartOf="@+id/button6" />
+        android:layout_toStartOf="@+id/button6"
+        android:onClick="onBottonTap" />
 
 
 

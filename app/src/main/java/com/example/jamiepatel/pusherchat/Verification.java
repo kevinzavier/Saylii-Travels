@@ -33,7 +33,9 @@ public class Verification extends Activity{
         }
         //Bundle b = iin.getExtras;
 
-        messageInput.setOnKeyListener(new View.OnKeyListener() {
+        //verification so we can set onKeyListener for the name_input and the
+        //verification_input EditTexts
+        View.OnKeyListener verification = new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
                 //the next activity
@@ -68,7 +70,14 @@ public class Verification extends Activity{
                 }
                 return false;
             }
-        });
+        };
+
+        messageInput.setOnKeyListener(verification);
+        nameInput.setOnKeyListener(verification);
+
+
+
+
 
 
     }

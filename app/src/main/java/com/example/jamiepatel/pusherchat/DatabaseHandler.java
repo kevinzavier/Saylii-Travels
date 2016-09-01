@@ -22,6 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     private static final String KEY_NAME = "name";
     private static final String KEY_PHONE = "phone";
 
+
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -61,6 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         Contact contact = new Contact(Integer.parseInt(cursor.getString(0)), cursor.getString(1),  cursor.getString(2));
         db.close();
+        cursor.close();
         return contact;
 
 
@@ -77,10 +79,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         //SELECT * FROM CONTACTS
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CONTACTS, null);
-        cursor.close();
+        int count = cursor.getCount();
         db.close();
+        cursor.close();
 
-        return cursor.getCount();
+
+        return count;
     }
 
     public int updateContact(Contact contact){
