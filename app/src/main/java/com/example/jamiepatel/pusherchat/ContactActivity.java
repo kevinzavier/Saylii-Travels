@@ -42,13 +42,17 @@ public class ContactActivity extends Activity{
         add.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Contact contact = new Contact(dbHandler.getContactsCount(), name.getText().toString(), phone.getText().toString());
-                dbHandler.createContact(contact);
-                Contacts.add(contact);
-                //addContact(0, name.getText().toString(), phone.getText().toString());
-                populateList();
-                Toast.makeText(ContactActivity.this, name.getText().toString() + " has been added", Toast.LENGTH_LONG).show();
-                name.setText(null);
-                phone.setText(null);
+                if(!contactExists(contact)) {
+                    dbHandler.createContact(contact);
+                    Contacts.add(contact);
+                    Toast.makeText(ContactActivity.this, name.getText().toString() + " has been added", Toast.LENGTH_LONG).show();
+                    name.setText(null);
+                    phone.setText(null);
+                    return;
+                }
+                Toast.makeText(ContactActivity.this, name.getText().toString() + " already exists. Please use a different name", Toast.LENGTH_LONG).show();
+
+
             }
         });
         contactListView = (ListView) findViewById(R.id.listView);
@@ -76,6 +80,7 @@ public class ContactActivity extends Activity{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //instead of toString maybe use String.valueOf
                 add.setEnabled(!name.getText().toString().trim().isEmpty());
             }
 
@@ -85,16 +90,23 @@ public class ContactActivity extends Activity{
             }
         });
 
-        List<Contact> addableContacts = dbHandler.getAllContacts();
-        int contactCount = dbHandler.getContactsCount();
+        if(dbHandler.getContactsCount()!=0){
+            Contacts.addAll(dbHandler.getAllContacts());
+        }
 
+        populateList();
+
+    }
+
+    private boolean contactExists(Contact contact){
+        String name = contact.getName();
+        int contactCount = Contacts.size();
         for(int i = 0; i < contactCount; i++){
-            Contacts.add(addableContacts.get(i));
+            if(name.compareToIgnoreCase(Contacts.get(i).getName()) == 0){
+                return true;
+            }
         }
-
-        if(!addableContacts.isEmpty()){
-            populateList();
-        }
+        return false;
     }
 
     private void addContact(int id, String name, String phone) {
