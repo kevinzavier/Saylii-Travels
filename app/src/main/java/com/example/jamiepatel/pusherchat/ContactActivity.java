@@ -47,6 +47,8 @@ public class ContactActivity extends Activity{
                 //addContact(0, name.getText().toString(), phone.getText().toString());
                 populateList();
                 Toast.makeText(ContactActivity.this, name.getText().toString() + " has been added", Toast.LENGTH_LONG).show();
+                name.setText(null);
+                phone.setText(null);
             }
         });
         contactListView = (ListView) findViewById(R.id.listView);

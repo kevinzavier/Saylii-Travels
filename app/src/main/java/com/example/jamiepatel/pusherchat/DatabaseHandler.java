@@ -29,12 +29,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        db.execSQL("CREATE TABLE" + TABLE_CONTACTS + "(" + KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT," + KEY_PHONE + " TEXT)");
+        db.execSQL("CREATE TABLE " + TABLE_CONTACTS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT," + KEY_PHONE + " TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_CONTACTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
 
         onCreate(db);
     }
@@ -101,7 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public List<Contact> getAllContacts(){
         List<Contact> contacts = new ArrayList<Contact>();
         SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM" + TABLE_CONTACTS, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CONTACTS, null);
 
         if(cursor.moveToFirst()){
             do{

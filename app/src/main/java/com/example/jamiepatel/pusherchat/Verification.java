@@ -46,10 +46,14 @@ public class Verification extends Activity{
 
                     //to see if the name edittext is filled in
                     boolean nameEmpty = nameInput.getText().toString().trim().isEmpty();
+                    boolean verifyEmpty = messageInput.getText().toString().trim().isEmpty();
                     String name = nameInput.getText().toString();
 
                     if(nameEmpty){
                         Toast.makeText(Verification.this, "Please enter your name!", Toast.LENGTH_LONG).show();
+                    }
+                    else if(verifyEmpty){
+                        Toast.makeText(Verification.this, "Please enter your verification number!", Toast.LENGTH_LONG).show();
                     }
                     //if the verification number is right
                     else if(myRandom.equals(messageInput.getText().toString())){
