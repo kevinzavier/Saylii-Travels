@@ -23,7 +23,7 @@ public class StartActivity extends Activity {
         int randomNum = (int)(100000 * Math.random());
         String random = String.valueOf(randomNum);
 
-        //smsManager.sendTextMessage(number, null, random, null, null);
+        smsManager.sendTextMessage(number, null, random, null, null);
         Intent intent = new Intent(getApplicationContext(), Verification.class);
 
         intent.putExtra("random", random);

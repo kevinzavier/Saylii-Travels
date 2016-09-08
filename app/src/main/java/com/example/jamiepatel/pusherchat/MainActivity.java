@@ -180,7 +180,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
         SmsManager smsManager = SmsManager.getDefault();
         for(int i = 0; i < phonelist.length; i++) {
-            //smsManager.sendTextMessage(phonelist[i], null, "FROM TRAV CHAT: " + text, null, null);
+            smsManager.sendTextMessage(phonelist[i], null, "saylii: " + text, null, null);
             Log.i("PHONE NUMBER",phonelist[i]);
         }
 
@@ -294,6 +294,9 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
                     messageReceived += msgs[i].getOriginatingAddress() + " : ";
                     messageReceived += msgs[i].getMessageBody().toString();
                     messageReceived += "\n";
+                    Toast.makeText(MainActivity.this, messageReceived, Toast.LENGTH_LONG).show();
+
+                    //so we get number : text
 
                     //MainActivity.this.postMessage();
 /*
@@ -301,16 +304,18 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
                     myMainAcivity.postMessage(msgs[i].getOriginatingAddress().toString(),
                             msgs[i].getMessageBody().toString());
                             */
-
+                    /*
                     //start(intent);
                     //TODO
                     String x = msgs[i].getOriginatingAddress();
+
                     x = x.substring(x.indexOf(")"));
                     for(int j = 0; j < x.length(); j++) {
                         if(Character.isDigit(x.charAt(j))){
                             x += x.charAt(j);
                         }
                     }
+                    */
                     //if(phonenumbers.contains(msgs[i].getOriginatingAddress())) {
                         postMessage(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody().toString());
                     //}

@@ -63,12 +63,6 @@ public class MessageAdapter extends BaseAdapter {
         holder.bodyView.setText(message.text);
         holder.senderView.setText(message.name);
 
-//http://i.imgur.com/Tny2C2o.png THIS IS THE BLUE ONE
-        //http://i.imgur.com/7Gem69x.png THIS IS ORANGE
-
-        //Log.i("THE thumbnail", message.name);
-        //Log.i("THE TEXT", message.text);
-
         //TODO maybe just use the ones that are saved, 'android.resource://com.kevinzavier/drawable/user.png'
         if(LoginActivity.username.equals(message.name)){
             profileColor = "http://i.imgur.com/Tny2C2o.png";
