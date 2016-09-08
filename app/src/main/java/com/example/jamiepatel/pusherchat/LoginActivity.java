@@ -33,8 +33,8 @@ import java.util.Map;
 public class LoginActivity extends ActionBarActivity {
 
 
-    EditText usernameInput;
-    public static String username;
+
+
 
     //Below is for the multiautocomplete view
     private ArrayList<String> phonenumbers = new ArrayList<String>();
@@ -52,7 +52,6 @@ public class LoginActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        usernameInput = (EditText) findViewById(R.id.username_input);
         mTxtPhoneNo = (MultiAutoCompleteTextView) findViewById(R.id.mmWhoNo);
 
         mPeopleList = new ArrayList<Map<String, String>>();
@@ -135,9 +134,17 @@ public class LoginActivity extends ActionBarActivity {
     public boolean onBottonClick(View v) {
 
 
-        String username = usernameInput.getText().toString();
-        //String phonenumber = mTxtPhoneNo.getText().toString();
-        this.username = username;
+
+
+
+
+        if(phonenumbers.size() ==0){
+            Toast myToast = Toast.makeText(getApplicationContext(),
+                    "Please create a group", Toast.LENGTH_SHORT);
+            myToast.show();
+            return false;
+        }
+
 
         String final_names = mTxtPhoneNo.getText().toString();
         String[] result = final_names.split(", ");
@@ -146,43 +153,32 @@ public class LoginActivity extends ActionBarActivity {
             Log.i("NAMES", result_list.get(i));
         }
 
+        //checking if user deleted any contacts before the button click
         for(int i = names.size() - 1; i >= 0; --i){
             if(!(result_list.contains(names.get(i)))){
                 phonenumbers.remove(i);
+                names.remove(i);
             }
         }
 
 
 
-        if(username.length() == 0 && phonenumbers.size() == 0){
-            Toast myToast = Toast.makeText(getApplicationContext(),
-                    "Please enter a name and create a group", Toast.LENGTH_SHORT);
-            myToast.show();
-            return false;
-        }
-        if(username.length() == 0){
-            Toast myToast = Toast.makeText(getApplicationContext(),
-                    "Please enter a name", Toast.LENGTH_SHORT);
-            myToast.show();
-            return false;
-        }
-        if(phonenumbers.size() ==0){
-            Toast myToast = Toast.makeText(getApplicationContext(),
-                    "Please create a group", Toast.LENGTH_SHORT);
-            myToast.show();
-            return false;
-        }
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("username", username);
         String phonenumber = "";
+        String name = "";
         for(String x: phonenumbers){
             phonenumber += x + "///";
         }
+        for(String x: names){
+            name += x + "///";
+        }
+
+        //TODO make sure to fix these tomorrow
         Log.i("PHONE NUMBERS", phonenumber);
 
         intent.putExtra("phonenumber", phonenumber);
         intent.putExtra("phonenumbers", phonenumbers);
-        intent.putExtra("names", result_list);
+        intent.putExtra("names", names);
         startActivity(intent);
         return true;
     }

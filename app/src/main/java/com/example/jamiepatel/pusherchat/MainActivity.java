@@ -40,10 +40,10 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
     final String MESSAGES_ENDPOINT = "http://pusher-chat-demo.herokuapp.com";
 
     private ArrayList<String> phonenumbers = new ArrayList<String>();
+    private ArrayList<String> names = new ArrayList<String>();
     MessageAdapter messageAdapter;
     EditText messageInput;
     Button sendButton;
-    String username;
     String phonenumber;
     SmsReceiver myReceiver;
     private int counter = 0;
@@ -55,24 +55,24 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         setContentView(R.layout.activity_main);
 
 
-        username = this.getIntent().getExtras().getString("username");  //from LoginActivity
+        //the String
         phonenumber = this.getIntent().getExtras().getString("phonenumber");
+        //the arraylist of String
         phonenumbers = this.getIntent().getExtras().getStringArrayList("phonenumbers");
-        Log.i("ORIGINAL", phonenumber);
-        phonelist = phonenumber.split("///");
+        //the arraylist of names
+        names = this.getIntent().getExtras().getStringArrayList("names");
 
-        String total = "";
-        for(int i = 0; i < phonelist.length; i++) {
-            for(int j = 0; j <phonelist[i].length(); j++) {
-                if (Character.isDigit(phonelist[i].charAt(j))) {
-                    total += phonelist[i].charAt(j);
-                }
-            }
-            total += " ";
-            Log.i("PHONE NUMBER",phonelist[i]);
+        //to print out the phone numbers and names
+        for(String x: phonenumbers){
+            Log.i("phonenumbers", x);
+        }
+        for(String x: names){
+            Log.i("names", x);
         }
 
-        Toast.makeText(this, "Welcome, " + username + "!", Toast.LENGTH_LONG).show();
+
+
+        Toast.makeText(this, "Welcome, " + Verification.myName + "!", Toast.LENGTH_LONG).show();
 
         messageInput = (EditText) findViewById(R.id.message_input);
         messageInput.setOnKeyListener(this);
@@ -170,18 +170,18 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         RequestParams params = new RequestParams();
 
         params.put("text", text);
-        params.put("name", username);
-        params.put("thumbnail", "http://i.imgur.com/Tny2C2o.png");
+        //so the login activity name is useless
+        params.put("name", Verification.myName);
+        //TODO made a change here
+        //params.put("thumbnail", "http://i.imgur.com/Tny2C2o.png");
         params.put("time", new Date().getTime());
 
         AsyncHttpClient client = new AsyncHttpClient();
 
-        Log.i("README", phonenumber);
-
         SmsManager smsManager = SmsManager.getDefault();
-        for(int i = 0; i < phonelist.length; i++) {
-            smsManager.sendTextMessage(phonelist[i], null, "saylii: " + text, null, null);
-            Log.i("PHONE NUMBER",phonelist[i]);
+        for(int i = 0; i < phonenumbers.size(); i++) {
+            smsManager.sendTextMessage(phonenumbers.get(i), null, "saylii: " + text, null, null);
+            Log.i("PHONE NUMBER",phonenumbers.get(i));
         }
 
         //PendingIntent sendPendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(SMS_SEND), 0);
@@ -217,7 +217,6 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         params.put("text", body);
         params.put("name", name);
         params.put("time", new Date().getTime());
-        params.put("thumbnail", "BBRUHHHHHHHHHHHHHHH");
 
         AsyncHttpClient client = new AsyncHttpClient();
         //Log.i("USERNAME", name);
@@ -287,14 +286,24 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
                 //---retrieve the SMS message received---
                 Object[] pdus = (Object[]) bundle.get("pdus");
                 msgs = new SmsMessage[pdus.length];
+                String received = "";
                 for (int i = 0; i < msgs.length; i++)
 
                 {
                     msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
-                    messageReceived += msgs[i].getOriginatingAddress() + " : ";
-                    messageReceived += msgs[i].getMessageBody().toString();
-                    messageReceived += "\n";
-                    Toast.makeText(MainActivity.this, messageReceived, Toast.LENGTH_LONG).show();
+                    received = msgs[i].getOriginatingAddress();
+                    received = received.substring(received.length() - 4);
+                    Log.i("received", received);
+
+                    //Check if the message received is from our conversation
+                    String name = "";
+                    boolean post = false;
+                    for(int j = 0; j < phonenumbers.size();j++){
+                        if(phonenumbers.get(i).contains(received)){
+                            post = true;
+                            name = names.get(i);
+                        }
+                    }
 
                     //so we get number : text
 
@@ -306,7 +315,7 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
                             */
                     /*
                     //start(intent);
-                    //TODO
+
                     String x = msgs[i].getOriginatingAddress();
 
                     x = x.substring(x.indexOf(")"));
@@ -316,9 +325,9 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
                         }
                     }
                     */
-                    //if(phonenumbers.contains(msgs[i].getOriginatingAddress())) {
-                        postMessage(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody().toString());
-                    //}
+                    if(post) {
+                        postMessage(name, msgs[i].getMessageBody().toString());
+                    }
                 }
             }
 

@@ -19,6 +19,7 @@ public class Verification extends Activity{
     EditText messageInput;
     EditText nameInput;
     private String myRandom;
+    public static String myName = "";
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify);
@@ -57,13 +58,14 @@ public class Verification extends Activity{
                     }
                     //if the verification number is right
                     else if(myRandom.equals(messageInput.getText().toString())){
-                        startActivity(intent);
+                        myName = name;
                         intent.putExtra("name", name);
                         startActivity(intent);
                     }
                     //if verification number is not right
                     else{
                         Toast.makeText(Verification.this, "Wrong verification number please try again!", Toast.LENGTH_LONG).show();
+                        myName = name;
                         messageInput.setText("");
                         intent.putExtra("name", name);
                         startActivity(intent);

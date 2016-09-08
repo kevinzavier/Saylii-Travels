@@ -7,21 +7,6 @@
     tools:context="com.example.jamiepatel.pusherchat.LoginActivity">
 
     <TextView
-        android:id="@+id/welcome_view"
-        android:text="@string/welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/username_input"
-        android:layout_width="fill_parent"
-        android:inputType="text"
-        android:layout_height="50dp"
-        android:layout_below="@+id/welcome_view"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
         android:id="@+id/phone_number"
         android:text="@string/prompt"
         android:layout_width="wrap_content"
@@ -32,7 +17,7 @@
 
     <Button
         android:textAllCaps="false"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Start Talking!"
         android:id="@+id/button"
@@ -47,8 +32,8 @@
         android:layout_above="@+id/button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/username_input"
-        android:layout_alignEnd="@+id/username_input" />
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button" />
 
 
 </RelativeLayout>

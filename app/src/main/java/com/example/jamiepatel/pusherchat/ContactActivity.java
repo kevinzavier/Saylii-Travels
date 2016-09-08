@@ -46,8 +46,8 @@ public class ContactActivity extends Activity{
                     dbHandler.createContact(contact);
                     Contacts.add(contact);
                     Toast.makeText(ContactActivity.this, name.getText().toString() + " has been added", Toast.LENGTH_LONG).show();
-                    name.setText(null);
-                    phone.setText(null);
+                    name.setText("");
+                    phone.setText("");
                     return;
                 }
                 Toast.makeText(ContactActivity.this, name.getText().toString() + " already exists. Please use a different name", Toast.LENGTH_LONG).show();
