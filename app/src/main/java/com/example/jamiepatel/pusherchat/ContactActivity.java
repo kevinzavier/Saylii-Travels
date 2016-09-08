@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +31,8 @@ public class ContactActivity extends Activity{
     List<Contact> Contacts = new ArrayList<Contact>();
     ListView contactListView;
     DatabaseHandler dbHandler;
+    ArrayAdapter<Contact> contentAdapter;
+    int longClickedItemIndex;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -39,12 +43,16 @@ public class ContactActivity extends Activity{
         phone = (EditText) findViewById(R.id.Phone);
         add = (Button) findViewById(R.id.addContact);
         dbHandler = new DatabaseHandler(getApplicationContext());
+
+
+
         add.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Contact contact = new Contact(dbHandler.getContactsCount(), name.getText().toString(), phone.getText().toString());
                 if(!contactExists(contact)) {
                     dbHandler.createContact(contact);
                     Contacts.add(contact);
+                    contentAdapter.notifyDataSetChanged();
                     Toast.makeText(ContactActivity.this, name.getText().toString() + " has been added", Toast.LENGTH_LONG).show();
                     name.setText("");
                     phone.setText("");
@@ -56,6 +64,15 @@ public class ContactActivity extends Activity{
             }
         });
         contactListView = (ListView) findViewById(R.id.listView);
+
+        registerForContextMenu(contactListView);
+        contactListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                longClickedItemIndex = position;
+                return false;
+            }
+        });
 
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
 
@@ -98,6 +115,12 @@ public class ContactActivity extends Activity{
 
     }
 
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu,view,menuInfo);
+
+        //menu.add();
+    }
+
     private boolean contactExists(Contact contact){
         String name = contact.getName();
         int contactCount = Contacts.size();
@@ -114,8 +137,8 @@ public class ContactActivity extends Activity{
     }
 
     private void populateList(){
-        ArrayAdapter<Contact> adapter = new ContactListAdapter();
-        contactListView.setAdapter(adapter);
+        contentAdapter = new ContactListAdapter();
+        contactListView.setAdapter(contentAdapter);
     }
 
 
