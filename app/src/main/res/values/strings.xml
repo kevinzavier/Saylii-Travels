@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trav Chat</string>
+    <string name="app_name">Saylii Travels</string>
 
     <string name="welcome">Please enter your name</string>
     <string name="prompt">Please type in the person(s) you want to message</string>
