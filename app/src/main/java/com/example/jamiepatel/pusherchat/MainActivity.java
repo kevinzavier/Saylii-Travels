@@ -44,10 +44,9 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
     MessageAdapter messageAdapter;
     EditText messageInput;
     Button sendButton;
-    String phonenumber;
+
     SmsReceiver myReceiver;
-    private int counter = 0;
-    String[] phonelist;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +54,6 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         setContentView(R.layout.activity_main);
 
 
-        //the String
-        phonenumber = this.getIntent().getExtras().getString("phonenumber");
         //the arraylist of String
         phonenumbers = this.getIntent().getExtras().getStringArrayList("phonenumbers");
         //the arraylist of names

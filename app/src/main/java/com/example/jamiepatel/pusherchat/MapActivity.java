@@ -36,7 +36,7 @@ public class MapActivity extends Activity{
     String myname ="";
     Button chat;
     Button addfriends;
-    Button events;
+    Button pin;
     Button go;
     Button more;
     double mylongitude;
@@ -59,7 +59,7 @@ public class MapActivity extends Activity{
         setContentView(R.layout.activity_map);
         //I use LocationManager to get the last saves location
 
-
+        Toast.makeText(MapActivity.this, "Tap the screen to go to your location", Toast.LENGTH_SHORT).show();
 
         LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
@@ -80,7 +80,17 @@ public class MapActivity extends Activity{
 
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState);
-        chat = (Button) findViewById(R.id.button3);
+        chat = (Button) findViewById(R.id.button4);
+        chat.setBackgroundResource(R.drawable.ic_menu_chat);
+        addfriends = (Button) findViewById(R.id.button3);
+        addfriends.setBackgroundResource(R.drawable.ic_3);
+        go = (Button) findViewById(R.id.button5);
+        go.setBackgroundResource(R.drawable.ic_menu_go);
+        pin = (Button) findViewById(R.id.button7);
+        pin.setBackgroundResource(R.drawable.ic_menu_addpin);
+        more = (Button) findViewById(R.id.button6);
+        more.setBackgroundResource(R.drawable.ic_menu_menu);
+
 
         //over here i implement LocationListener to check for changes
         final LocationListener locationListener = new LocationListener() {
@@ -114,7 +124,7 @@ public class MapActivity extends Activity{
                                     .target(new LatLng(mylatitude, mylongitude)) // Sets the new camera position
                                     .zoom(zoomfactor) // Sets the zoom
                                     .bearing(180) // Rotate the camera
-                                    .tilt(30) // Set the camera tilt
+                                    .tilt(0) // Set the camera tilt
                                     .build(); // Creates a CameraPosition from the builder
 
                             mapboxMap.animateCamera(CameraUpdateFactory

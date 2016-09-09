@@ -1,6 +1,7 @@
 package com.example.jamiepatel.pusherchat;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,6 +30,7 @@ public class ContactActivity extends Activity{
 
     private static final int EDIT = 0;
     private static final int DELETE = 1;
+    private static final int MESSAGE = 2;
     EditText name;
     EditText phone;
     Button add;
@@ -135,6 +137,22 @@ public class ContactActivity extends Activity{
                 Contacts.remove(longClickedItemIndex);
                 contentAdapter.notifyDataSetChanged();
                 break;
+            case MESSAGE:
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //get phone number and name of the contact
+                String contactPhone = Contacts.get(longClickedItemIndex).getPhone();
+                String contactName  = Contacts.get(longClickedItemIndex).getName();
+
+                //this is for the MainActivity
+                ArrayList<String> phonenumbers = new ArrayList<String>();
+                ArrayList<String> names = new ArrayList<String>();
+                phonenumbers.add(contactPhone);
+                names.add(contactName);
+
+                intent.putExtra("phonenumbers", phonenumbers);
+                intent.putExtra("names", names);
+                startActivity(intent);
+
         }
 
         return super.onContextItemSelected(item);
