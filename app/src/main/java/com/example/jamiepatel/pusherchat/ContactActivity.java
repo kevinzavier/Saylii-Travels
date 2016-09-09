@@ -128,6 +128,7 @@ public class ContactActivity extends Activity{
         menu.setHeaderTitle("Contact Options");
         //menu.add(Menu.NONE, EDIT, menu.NONE, "Edit Contact");
         menu.add(Menu.NONE, DELETE, menu.NONE, "Delete Contact");
+        menu.add(Menu.NONE, MESSAGE, menu.NONE, "Message Contact");
     }
 
     public boolean onContextItemSelected(MenuItem item){

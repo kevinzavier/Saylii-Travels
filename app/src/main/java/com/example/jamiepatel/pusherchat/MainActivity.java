@@ -293,35 +293,18 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
                     Log.i("received", received);
 
                     //Check if the message received is from our conversation
+                    //THIS IS THE VERIFICATION
                     String name = "";
                     boolean post = false;
                     for(int j = 0; j < phonenumbers.size();j++){
-                        if(phonenumbers.get(i).contains(received)){
+                        if(phonenumbers.get(j).contains(received)){
                             post = true;
-                            name = names.get(i);
+                            name = names.get(j);
+                            break;
                         }
                     }
 
-                    //so we get number : text
 
-                    //MainActivity.this.postMessage();
-/*
-                    MainActivity myMainAcivity = new MainActivity();
-                    myMainAcivity.postMessage(msgs[i].getOriginatingAddress().toString(),
-                            msgs[i].getMessageBody().toString());
-                            */
-                    /*
-                    //start(intent);
-
-                    String x = msgs[i].getOriginatingAddress();
-
-                    x = x.substring(x.indexOf(")"));
-                    for(int j = 0; j < x.length(); j++) {
-                        if(Character.isDigit(x.charAt(j))){
-                            x += x.charAt(j);
-                        }
-                    }
-                    */
                     if(post) {
                         postMessage(name, msgs[i].getMessageBody().toString());
                     }

@@ -59,6 +59,7 @@ public class Verification extends Activity{
                     //if the verification number is right
                     else if(myRandom.equals(messageInput.getText().toString())){
                         myName = name;
+                        StartActivity.verified = true;
                         intent.putExtra("name", name);
                         startActivity(intent);
                     }
