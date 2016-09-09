@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,6 +27,8 @@ import java.util.List;
 
 public class ContactActivity extends Activity{
 
+    private static final int EDIT = 0;
+    private static final int DELETE = 1;
     EditText name;
     EditText phone;
     Button add;
@@ -118,8 +122,24 @@ public class ContactActivity extends Activity{
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu,view,menuInfo);
 
-        //menu.add();
+        menu.setHeaderIcon(R.drawable.edit);
+        menu.setHeaderTitle("Contact Options");
+        //menu.add(Menu.NONE, EDIT, menu.NONE, "Edit Contact");
+        menu.add(Menu.NONE, DELETE, menu.NONE, "Delete Contact");
     }
+
+    public boolean onContextItemSelected(MenuItem item){
+        switch(item.getItemId()) {
+            case DELETE:
+                dbHandler.deleteContact(Contacts.get(longClickedItemIndex));
+                Contacts.remove(longClickedItemIndex);
+                contentAdapter.notifyDataSetChanged();
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
 
     private boolean contactExists(Contact contact){
         String name = contact.getName();
