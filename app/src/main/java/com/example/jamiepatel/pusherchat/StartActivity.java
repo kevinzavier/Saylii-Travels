@@ -33,5 +33,6 @@ public class StartActivity extends Activity {
 
         intent.putExtra("random", random);
         startActivity(intent);
+        finish();
     }
 }

@@ -13,14 +13,21 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         mapbox:style_url="mapbox://styles/mapbox/streets-v9"
-        mapbox:center_latitude="40.7326808"
-        mapbox:center_longitude="-73.9843407"
+        mapbox:center_latitude="41.893077"
+        mapbox:center_longitude="-100.107422"
 
-        mapbox:zoom="9"
+        mapbox:zoom="4"
         mapbox:access_token="pk.eyJ1Ijoia2V2aW56YXZpZXIiLCJhIjoiY2lyZHRydWJpMDFqdmdobTN1OHVzZHZsNSJ9.1kycJM_bgrwAsqHqznpuZA"/>
     <!-- BELOW IS THE USERS CURRENT LOCATION (which WILL NOT be static)
     mapbox:center_latitude="34.23390815"
       mapbox:center_longitude="-118.25063171" -->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_above="@+id/button5"
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -75,7 +82,6 @@
         android:layout_toLeftOf="@+id/button6"
         android:layout_toStartOf="@+id/button6"
         android:onClick="onBottonTap" />
-
 
 
 </RelativeLayout>
