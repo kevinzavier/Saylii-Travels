@@ -1,4 +1,4 @@
-package com.example.jamiepatel.pusherchat;
+package com.official.kevinzavier.sayliitravels;
 
 /**
  * Created by jamiepatel on 22/09/2015.

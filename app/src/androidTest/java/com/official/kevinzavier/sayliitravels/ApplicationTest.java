@@ -1,4 +1,4 @@
-package com.example.jamiepatel.pusherchat;
+package com.official.kevinzavier.sayliitravels;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

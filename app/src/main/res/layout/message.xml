@@ -16,6 +16,7 @@
         android:layout_marginLeft="25dp"
         android:layout_toRightOf="@+id/img_thumbnail"
         android:layout_alignTop="@+id/img_thumbnail"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -23,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/message_body"
+        android:textColor="@color/white"
         android:layout_below="@+id/message_sender"
         android:layout_alignLeft="@+id/message_sender"
         />

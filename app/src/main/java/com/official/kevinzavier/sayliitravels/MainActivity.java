@@ -1,6 +1,5 @@
-package com.example.jamiepatel.pusherchat;
+package com.official.kevinzavier.sayliitravels;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +27,6 @@ import com.pusher.client.channel.SubscriptionEventListener;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.util.ArrayList;
 import java.util.Date;

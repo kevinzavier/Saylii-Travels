@@ -5,11 +5,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@color/background"
-    tools:context="com.example.jamiepatel.pusherchat.LoginActivity">
+    tools:context="com.official.kevinzavier.sayliitravels.LoginActivity">
 
     <TextView
         android:id="@+id/phone_number"
         android:text="@string/prompt"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/mmWhoNo"
@@ -34,7 +35,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
+        android:layout_alignEnd="@+id/button"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@color/white"/>
 
 
 </RelativeLayout>

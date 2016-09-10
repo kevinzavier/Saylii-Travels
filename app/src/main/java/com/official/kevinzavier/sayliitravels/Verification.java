@@ -1,16 +1,12 @@
-package com.example.jamiepatel.pusherchat;
+package com.official.kevinzavier.sayliitravels;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-
-import com.loopj.android.http.RequestParams;
 
 /**
  * Created by kevin on 8/11/16.
