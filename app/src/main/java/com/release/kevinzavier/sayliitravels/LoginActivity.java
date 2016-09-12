@@ -1,4 +1,4 @@
-package com.official.kevinzavier.sayliitravels;
+package com.release.kevinzavier.sayliitravels;
 
 import android.content.Intent;
 import android.database.Cursor;

@@ -1,4 +1,4 @@
-package com.official.kevinzavier.sayliitravels;
+package com.release.kevinzavier.sayliitravels;
 
 import android.content.ContentValues;
 import android.content.Context;

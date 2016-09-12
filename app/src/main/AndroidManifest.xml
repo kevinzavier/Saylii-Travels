@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.official.kevinzavier.sayliitravels"
+    package="com.release.kevinzavier.sayliitravels"
     >
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,38 +21,38 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.official.kevinzavier.sayliitravels.MainActivity"
+            android:name="com.release.kevinzavier.sayliitravels.MainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.official.kevinzavier.sayliitravels.LoginActivity"
-            android:label="@string/app_name" >
-
-        </activity>
-        <activity
-            android:name="com.official.kevinzavier.sayliitravels.Verification"
+            android:name="com.release.kevinzavier.sayliitravels.LoginActivity"
             android:label="@string/app_name" >
 
         </activity>
         <activity
-            android:name="com.official.kevinzavier.sayliitravels.MapActivity"
+            android:name="com.release.kevinzavier.sayliitravels.Verification"
             android:label="@string/app_name" >
 
         </activity>
         <activity
-            android:name="com.official.kevinzavier.sayliitravels.ContactActivity"
+            android:name="com.release.kevinzavier.sayliitravels.MapActivity"
             android:label="@string/app_name" >
 
         </activity>
         <activity
-            android:name="com.official.kevinzavier.sayliitravels.PopMenu"
+            android:name="com.release.kevinzavier.sayliitravels.ContactActivity"
+            android:label="@string/app_name" >
+
+        </activity>
+        <activity
+            android:name="com.release.kevinzavier.sayliitravels.PopMenu"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.CustomTheme"
             >
 
         </activity>
         <activity
-            android:name="com.official.kevinzavier.sayliitravels.StartActivity"
+            android:name="com.release.kevinzavier.sayliitravels.StartActivity"
             android:label="@string/app_name"
             android:noHistory="true"
             android:screenOrientation="portrait"

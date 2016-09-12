@@ -1,4 +1,4 @@
-package com.official.kevinzavier.sayliitravels;
+package com.release.kevinzavier.sayliitravels;
 
 /**
  * Created by jamiepatel on 22/09/2015.
